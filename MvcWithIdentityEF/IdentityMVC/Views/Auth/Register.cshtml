@@ -1,0 +1,18 @@
+﻿@model IdentityMVC.Models.Identity.RegisterModel
+
+<title>Register</title>
+<h2>Register</h2>
+<div class="body-content container">
+    @Html.ValidationSummary(false)
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.EditorForModel()
+        <br />
+        <p>
+            <button type="submit" class="btnflt4">Register</button>
+        </p>
+    }
+</div>
+
