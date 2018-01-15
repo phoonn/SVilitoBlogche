@@ -1,6 +1,6 @@
-﻿using DataModel.Identity;
-using IdentityMVC.App_Start;
+﻿using IdentityMVC.App_Start;
 using IdentityMVC.Models.Identity;
+using IdentityMVC.Models.Identity.ManagerAndStore;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,16 +9,16 @@ using System.Web.Mvc;
 
 namespace IdentityMVC.Controllers
 {
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
-        private readonly UserManager<User> userManager;
+        private readonly AppUserManager userManager;
 
         public AuthController()
             : this(Startup.UserManagerFactory.Invoke())
         {
         }
 
-        public AuthController(UserManager<User> userManager)
+        public AuthController(AppUserManager userManager)
         {
             this.userManager = userManager;
         }
@@ -53,6 +53,7 @@ namespace IdentityMVC.Controllers
             {
                 ClaimsIdentity identity = await userManager.CreateIdentityAsync(
                     user, DefaultAuthenticationTypes.ApplicationCookie);
+                identity.AddClaim(new Claim(ClaimTypes.Sid, user.Id.ToString()));
 
                 var authManager = Request.GetOwinContext().Authentication;
                 authManager.SignIn(identity);
@@ -92,14 +93,15 @@ namespace IdentityMVC.Controllers
 
             var user = new User
             {
-                UserName = model.Email,
+                UserName = model.UserName,
+                Email = model.Email,
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                userManager.AddToRole(user.Id, "User");
+                //userManager.AddToRole(user.Id, "User");
                 await SignIn(user);
                 return RedirectToAction("index", "home");
             }

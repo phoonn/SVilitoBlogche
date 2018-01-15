@@ -4,6 +4,9 @@ namespace IdentityMVC.Models.Identity
 {
     public class RegisterModel
     {
+        [Required]
+        [DataType(DataType.Text)]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]

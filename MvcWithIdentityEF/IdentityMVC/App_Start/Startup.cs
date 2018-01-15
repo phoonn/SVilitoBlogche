@@ -1,5 +1,5 @@
-﻿using DataModel.Identity;
-using IdentityMVC.Models.Identity;
+﻿using IdentityMVC.Models.Identity;
+using IdentityMVC.Models.Identity.ManagerAndStore;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
@@ -11,7 +11,7 @@ namespace IdentityMVC.App_Start
 {
     public class Startup
     {
-        public static Func<UserManager<User>> UserManagerFactory { get; private set; }
+        public static Func<AppUserManager> UserManagerFactory { get; private set; }
 
         public void Configuration(IAppBuilder app)
         {
@@ -28,10 +28,10 @@ namespace IdentityMVC.App_Start
             // configure the user manager
             UserManagerFactory = () =>
             {
-                var usermanager = new UserManager<User>(
-                    new UserStore<User>(new MyIdentityAppContext()));
+                var usermanager = new AppUserManager(
+                    new AppUserStore(new MyIdentityAppContext()));
                 // allow alphanumeric characters in username
-                usermanager.UserValidator = new UserValidator<User>(usermanager)
+                usermanager.UserValidator = new UserValidator<User,int>(usermanager)
                 {
                     AllowOnlyAlphanumericUserNames = false
                 };

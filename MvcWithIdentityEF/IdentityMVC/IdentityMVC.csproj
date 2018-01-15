@@ -193,10 +193,13 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Identity\ManagerAndStore\AppUserManager.cs" />
+    <Compile Include="Models\Identity\ManagerAndStore\AppUserStore.cs" />
     <Compile Include="Models\Identity\MyIdentityAppContext.cs" />
     <Compile Include="Models\Identity\LogInModel.cs" />
     <Compile Include="Models\Identity\RegisterModel.cs" />
@@ -245,6 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
