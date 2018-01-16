@@ -1,13 +1,13 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using DataModel.Models.Identity;
 
-namespace IdentityMVC.Models.Identity
+namespace DataAcess.Identity
 {
     public class MyIdentityAppContext : IdentityDbContext<User,AppRole,int,AppUserLogin,AppUserRole,AppUserClaim>
     {
         public MyIdentityAppContext () : base("DbConnectionString")
         {
-
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

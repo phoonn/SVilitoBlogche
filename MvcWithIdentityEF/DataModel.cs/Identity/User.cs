@@ -3,16 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 
-namespace IdentityMVC.Models.Identity
+namespace DataModel.Models.Identity
 {
     public class User : IdentityUser<int,AppUserLogin,AppUserRole,AppUserClaim>
     {
         public override int Id { get; set; }
-
-        //[Column(TypeName ="varchar"), StringLength(64)]
-        //public override string UserName { get; set; }
-        //[Column(TypeName = "varchar"), StringLength(128)]
-        //public override string Email { get; set; }
     }
     public class AppRole : IdentityRole<int, AppUserRole>
     {

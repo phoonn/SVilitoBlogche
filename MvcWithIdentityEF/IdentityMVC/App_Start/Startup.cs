@@ -1,7 +1,7 @@
-﻿using IdentityMVC.Models.Identity;
-using IdentityMVC.Models.Identity.ManagerAndStore;
+﻿using DataAcess.Identity;
+using DataModel.Identity.ManagerAndStore;
+using DataModel.Models.Identity;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;

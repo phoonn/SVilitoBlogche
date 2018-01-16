@@ -1,6 +1,7 @@
-﻿using IdentityMVC.App_Start;
+﻿using DataModel.Identity.ManagerAndStore;
+using DataModel.Models.Identity;
+using IdentityMVC.App_Start;
 using IdentityMVC.Models.Identity;
-using IdentityMVC.Models.Identity.ManagerAndStore;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -101,7 +102,7 @@ namespace IdentityMVC.Controllers
 
             if (result.Succeeded)
             {
-                //userManager.AddToRole(user.Id, "User");
+                userManager.AddToRole(user.Id, "User");
                 await SignIn(user);
                 return RedirectToAction("index", "home");
             }

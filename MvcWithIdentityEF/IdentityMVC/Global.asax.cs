@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataAcess.Identity;
+using DataModel.Models.Identity;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -18,6 +17,15 @@ namespace IdentityMVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            MyIdentityAppContext context = new MyIdentityAppContext();
+            context.Database.CreateIfNotExists();
+            if (context.Roles.FirstOrDefault(i=>i.Name=="User")==null)
+            {
+                context.Roles.Add(new AppRole("User"));
+                context.SaveChanges();
+            }
+            context.Dispose();
         }
     }
 }

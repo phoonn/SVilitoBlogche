@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DataModel.Models.Identity;
+using Microsoft.AspNet.Identity;
 
-namespace IdentityMVC.Models.Identity.ManagerAndStore
+namespace DataModel.Identity.ManagerAndStore
 {
     public class AppUserManager : UserManager<User, int>
     {

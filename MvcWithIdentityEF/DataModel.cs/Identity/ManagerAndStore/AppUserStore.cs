@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DataModel.Models.Identity;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
-namespace IdentityMVC.Models.Identity.ManagerAndStore
+namespace DataModel.Identity.ManagerAndStore
 {
     public interface IAppUserStore: IUserStore<User, int>
     {
