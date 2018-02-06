@@ -1,11 +1,17 @@
-﻿using DataAcess.Identity;
+﻿using BusinessLogic;
+using DataAcess.Repositories;
+using DataModel.Identity;
 using DataModel.Identity.ManagerAndStore;
-using DataModel.Models.Identity;
+using Interfaces.BusinessLogic;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
+using System.Web.Http;
+using System.Web.Mvc;
+using Unity;
 
 namespace IdentityMVC.App_Start
 {
@@ -22,8 +28,9 @@ namespace IdentityMVC.App_Start
                 LoginPath = new PathString("/auth/login")
             });
 
-            //UnityConfig.ConfigureUnityInj();
-            //app.CreatePerOwinContext(() => UnityConfig.GetContainer().Resolve<CrudServiceOf_Laptops_LaptopDTOClient>());
+            UnityConfig.ConfigureUnityInj();
+            
+            app.CreatePerOwinContext(() => UnityConfig.GetContainer().Resolve<IUsersLogic>());
 
             // configure the user manager
             UserManagerFactory = () =>

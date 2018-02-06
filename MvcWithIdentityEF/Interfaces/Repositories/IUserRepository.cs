@@ -1,12 +1,11 @@
-﻿using DataModel.Models.Identity;
-using System.Collections.Generic;
+﻿using DataModel.Identity;
 using System.Threading.Tasks;
 
 namespace Interfaces.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task<int> CountUsersAsync();
+        int CountUsersAsync();
 
         //IEnumerable<User> GetAllWithRoles();
     }

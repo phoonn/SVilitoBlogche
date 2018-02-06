@@ -1,8 +1,7 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using DataModel.Models.Identity;
 
-namespace DataAcess.Identity
+namespace DataModel.Identity.ManagerAndStore
 {
     public class MyIdentityAppContext : IdentityDbContext<User,AppRole,int,AppUserLogin,AppUserRole,AppUserClaim>
     {

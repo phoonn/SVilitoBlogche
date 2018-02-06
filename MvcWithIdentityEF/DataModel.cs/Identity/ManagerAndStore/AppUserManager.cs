@@ -1,5 +1,4 @@
-﻿using DataModel.Models.Identity;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 
 namespace DataModel.Identity.ManagerAndStore
 {

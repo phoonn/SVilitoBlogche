@@ -1,5 +1,5 @@
-﻿using DataModel.Identity.ManagerAndStore;
-using DataModel.Models.Identity;
+﻿using DataModel.Identity;
+using DataModel.Identity.ManagerAndStore;
 using IdentityMVC.App_Start;
 using IdentityMVC.Models.Identity;
 using Microsoft.AspNet.Identity;
@@ -48,7 +48,7 @@ namespace IdentityMVC.Controllers
                 return View(); //Returns the view with the input values.
             }
 
-            User user = await userManager.FindAsync(model.Email, model.Password);
+            User user = await userManager.FindAsync(model.UserName, model.Password);
 
             if (user != null && user.LockoutEnabled == false)
             {

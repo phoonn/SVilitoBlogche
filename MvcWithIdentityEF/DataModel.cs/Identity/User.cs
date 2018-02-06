@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 
-namespace DataModel.Models.Identity
+namespace DataModel.Identity
 {
     public class User : IdentityUser<int,AppUserLogin,AppUserRole,AppUserClaim>
     {

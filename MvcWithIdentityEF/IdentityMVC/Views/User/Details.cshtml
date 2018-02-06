@@ -1,0 +1,58 @@
+﻿@model DataModel.Identity.User
+
+<h2 id="heading">@Model.UserName</h2>
+<table class="indextable table col-md-4">
+    <tr>
+        <th>
+            Current Role :
+
+            @if (Model.Roles.SingleOrDefault().RoleId == 1)
+            {
+                <p>User</p>
+            }
+
+            @if (Model.Roles.SingleOrDefault().RoleId == 2)
+            {
+                <p>Administrator</p>
+            }
+
+            @if (Model.Roles.SingleOrDefault().RoleId == 3)
+            {
+                <p>Moderator</p>
+            }
+        </th>
+        <th>
+            New Role :
+            <button type="button" id="changeToUser" value="User">User</button>
+            <button type="button" id="changeToAdministrator" value="Administrator">Administrator</button>
+            <button type="button" id="changeToModerator" value="Moderator">Moderator</button>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            Current State:
+
+            @if (Model.LockoutEnabled)
+            {
+                <p>Locked</p>
+            }
+
+            else
+            {
+                <p>Active</p>
+            }
+        </th>
+        <th>
+            New State:
+            <button type="button" id="changeToLocked" value="1">Lock</button>
+            <button type="button" id="changeToActive" value="0">Active</button>
+        </th>
+    </tr>
+</table>
+
+<button type="button" id="deleteButton" class="btnflt4" value="@Model.UserName">Delete User</button>
+
+
+@Html.ActionLink("Back to List", "Index", null, new { @class = "btnflt4" })
+
+<script src="~/Scripts/EditUser.js" type="text/javascript"></script>

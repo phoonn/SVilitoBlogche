@@ -1,9 +1,8 @@
-﻿using DataModel.Models.Identity;
-using Interfaces.Repositories;
+﻿using Interfaces.Repositories;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using DataModel.Identity;
 using System;
-using System.Collections.Generic;
 
 namespace DataAcess.Repositories
 {
@@ -13,9 +12,11 @@ namespace DataAcess.Repositories
         {
         }
 
-        public Task<int> CountUsersAsync()
+        public int CountUsersAsync()
         {
-            return Items.CountAsync();
+            Task<int> t = Items.CountAsync();
+            return t.Result;
+            
         }
 
         //public IEnumerable<User> GetAllWithRoles()

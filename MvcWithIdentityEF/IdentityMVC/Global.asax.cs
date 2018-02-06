@@ -1,5 +1,5 @@
-﻿using DataAcess.Identity;
-using DataModel.Models.Identity;
+﻿using DataModel.Identity;
+using DataModel.Identity.ManagerAndStore;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;

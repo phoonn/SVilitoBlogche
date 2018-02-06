@@ -1,9 +1,5 @@
-﻿using IdentityMVC.Models.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DataModel.Identity;
 using System.Security.Claims;
-using System.Web;
 using System.Web.Mvc;
 
 namespace IdentityMVC.Controllers

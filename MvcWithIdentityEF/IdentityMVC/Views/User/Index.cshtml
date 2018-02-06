@@ -1,0 +1,68 @@
+﻿@model IdentityMVC.Models.PagedListModel<DataModel.Identity.User>
+
+<h1>Users</h1>
+
+<br />
+
+<table class="table indextable">
+    <tr>
+        <th>
+            UserName
+        </th>
+        <th>
+            Role
+        </th>
+        <th>
+            State
+        </th>
+        <td>
+            Details
+        </td>
+    </tr>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>
+                @item.UserName
+            </td>
+            <td>
+                @if (item.Roles.SingleOrDefault().RoleId == 1)
+                {
+                    <p>User</p>
+                }
+
+                @if (item.Roles.SingleOrDefault().RoleId == 2)
+                {
+                    <p>Administrator</p>
+                }
+
+                @if (item.Roles.SingleOrDefault().RoleId == 3)
+                {
+                    <p>Moderator</p>
+                }
+            </td>
+            <td>
+                @if (item.LockoutEnabled)
+                {
+                    <p>Locked</p>
+                }
+
+                else
+                {
+                    <p>Active</p>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Details", "User", new { userName = item.UserName }, new { @class = "btnflt4" })
+            </td>
+        </tr>
+
+    }
+</table>
+
+<div style="text-align : center">
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        @Html.ActionLink(i.ToString() + "   ", "Index", new { page = i }, new { @class = "btnflt4" })
+    }
+</div>
