@@ -34,7 +34,7 @@ namespace IdentityMVC.Controllers
             int TotalCount = Logic.CountUsers();
             Users = Logic.GetAll(null, o => o.OrderBy(i => i.Id), "Roles", PageSize,(PageSize*(page-1)));
             int pageCount = (TotalCount % PageSize == 0 ? TotalCount / PageSize : (TotalCount / PageSize + 1));
-            var result = new PagedListModel<User>(Users, TotalCount, PageSize);
+            var result = new PagedListModel<User>(Users,TotalCount, pageCount,page);
             
             return View(result);
         }

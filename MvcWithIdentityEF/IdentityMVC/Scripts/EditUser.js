@@ -10,7 +10,7 @@
         },
         ajaxasync: true,
         success: function () {
-            location.reload(); 
+            window.location.href = "Details?userName=" + userName;
         },
         error: function () {
         }
@@ -29,11 +29,11 @@ $("#changeToAdministrator").click(function () {
         },
         ajaxasync: true,
         success: function () {
+            window.location.href = "Details?userName=" + userName;
         },
         error: function () {
         }
     });
-    location.reload(); 
 });
 
 $("#changeToModerator").click(function () {
@@ -48,11 +48,11 @@ $("#changeToModerator").click(function () {
         },
         ajaxasync: true,
         success: function () {
+            window.location.href = "Details?userName=" + userName;
         },
         error: function () {
         }
     });
-    location.reload(); 
 });
 
 $("#changeToLocked").click(function () {
@@ -67,6 +67,7 @@ $("#changeToLocked").click(function () {
         },
         ajaxasync: true,
         success: function () {
+            window.location.href = "Details?userName=" + userName;
         },
         error: function () {
         }
@@ -86,6 +87,7 @@ $("#changeToActive").click(function () {
         },
         ajaxasync: true,
         success: function () {
+            window.location.href = "Details?userName=" + userName;
         },
         error: function () {
         }

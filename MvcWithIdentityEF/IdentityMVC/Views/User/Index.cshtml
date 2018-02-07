@@ -1,4 +1,5 @@
-﻿@model IdentityMVC.Models.PagedListModel<DataModel.Identity.User>
+﻿
+@model IdentityMVC.Models.PagedListModel<DataModel.Identity.User>
 
 <h1>Users</h1>
 
@@ -63,6 +64,15 @@
 <div style="text-align : center">
     @for (int i = 1; i <= Model.PageCount; i++)
     {
-        @Html.ActionLink(i.ToString() + "   ", "Index", new { page = i }, new { @class = "btnflt4" })
+        if (Model.CurrentPage == i)
+        {
+            @Html.ActionLink(i.ToString() + "   ", "Index", new { page = i }, new { @class = "pageindexer", @id = "active" });
+        }
+        else
+        { 
+            @Html.ActionLink(i.ToString() + "   ", "Index", new { page = i }, new { @class = "pageindexer" });
+        }
+
+
     }
 </div>
