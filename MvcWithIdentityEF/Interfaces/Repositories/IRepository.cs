@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Interfaces.Repositories
 {
-    public interface IRepository<T> where T : class, new()
+    public interface IRepository<T> :IDisposable where T : class, new()
     {
         IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
@@ -28,5 +28,7 @@ namespace Interfaces.Repositories
 
 
         void Update(T entityToUpdate);
+
+        void Commit();
     }
 }

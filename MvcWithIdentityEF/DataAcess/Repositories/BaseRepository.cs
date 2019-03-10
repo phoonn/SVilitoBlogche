@@ -103,5 +103,15 @@ namespace DataAcess.Repositories
             }
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
+
+        public virtual void Commit()
+        {
+            Unit.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
     }
 }

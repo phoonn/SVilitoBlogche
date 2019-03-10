@@ -29,6 +29,7 @@ namespace IdentityMVC.App_Start
         {
 
             Container.RegisterType<IUserRepository, UserRepository>();
+            Container.RegisterType<IBlogPostRepository, BlogPostRepository>();
             Container.RegisterType<IRepository<AppRole>, BaseRepository<AppRole>>();
             Container.RegisterType<IUsersLogic, UsersLogic>();
             Container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());

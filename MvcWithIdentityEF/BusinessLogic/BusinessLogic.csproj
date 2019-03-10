@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseCrudLogic.cs" />
-    <Compile Include="UsersLogic.cs" />
+    <Compile Include="UserManaging\UsersLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,9 +56,9 @@
       <Project>{db2f4e2f-2c3b-4915-83b9-b958494ee313}</Project>
       <Name>DataAcess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataModel.cs\DataModel.cs.csproj">
+    <ProjectReference Include="..\DataModel.cs\DataModel.csproj">
       <Project>{23806E6A-18A4-4B54-8283-8EBB9F7E5212}</Project>
-      <Name>DataModel.cs</Name>
+      <Name>DataModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
       <Project>{1686411F-126E-4E4D-AA92-B3A4F6ACB46F}</Project>

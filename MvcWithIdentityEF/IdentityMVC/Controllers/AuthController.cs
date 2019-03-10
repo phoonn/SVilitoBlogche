@@ -3,6 +3,7 @@ using DataModel.Identity.ManagerAndStore;
 using IdentityMVC.App_Start;
 using IdentityMVC.Models.Identity;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -48,7 +49,7 @@ namespace IdentityMVC.Controllers
                 return View(); //Returns the view with the input values.
             }
 
-            User user = await userManager.FindAsync(model.UserName, model.Password);
+            User user = await userManager.FindAsync(model.Username, model.Password);
 
             if (user != null && user.LockoutEnabled == false)
             {
@@ -57,8 +58,7 @@ namespace IdentityMVC.Controllers
                 identity.AddClaim(new Claim(ClaimTypes.Sid, user.Id.ToString()));
 
                 var authManager = Request.GetOwinContext().Authentication;
-                authManager.SignIn(identity);
-
+                authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);
                 return Redirect(GetRedirectUrl(model.ReturnUrl));
             }
 
@@ -94,7 +94,7 @@ namespace IdentityMVC.Controllers
 
             var user = new User
             {
-                UserName = model.UserName,
+                UserName = model.Username,
                 Email = model.Email,
             };
 

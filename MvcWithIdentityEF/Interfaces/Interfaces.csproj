@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BusinessLogic\ICrudLogic.cs" />
     <Compile Include="BusinessLogic\IUsersLogic.cs" />
+    <Compile Include="Repositories\IBlogPostRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,9 +60,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataModel.cs\DataModel.cs.csproj">
+    <ProjectReference Include="..\DataModel.cs\DataModel.csproj">
       <Project>{23806E6A-18A4-4B54-8283-8EBB9F7E5212}</Project>
-      <Name>DataModel.cs</Name>
+      <Name>DataModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

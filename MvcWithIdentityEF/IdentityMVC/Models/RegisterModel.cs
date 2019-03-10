@@ -6,7 +6,7 @@ namespace IdentityMVC.Models.Identity
     {
         [Required]
         [DataType(DataType.Text)]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]

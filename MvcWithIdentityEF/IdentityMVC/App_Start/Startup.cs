@@ -5,6 +5,7 @@ using DataModel.Identity.ManagerAndStore;
 using Interfaces.BusinessLogic;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
@@ -25,7 +26,7 @@ namespace IdentityMVC.App_Start
 
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/auth/login")
+                LoginPath = new PathString("/auth/login"),
             });
 
             UnityConfig.ConfigureUnityInj();
