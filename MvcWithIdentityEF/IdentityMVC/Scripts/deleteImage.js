@@ -8,10 +8,14 @@
         //var carID = $(this).attr("data-value");
         var parent = $(this).parent('div');
         var id = $(this).attr("value");
+
+        var form = $('#__AjaxAntiForgeryForm');
+        var token = $('input[name="__RequestVerificationToken"]', form).val();
+
         $.ajax({
             type: "post",
             url: "/BlogPosts/DeleteImage",
-            data: { id: id },
+            data: { __RequestVerificationToken: token, id: id },
             success: function () {
                 parent.fadeOut();
                 $('#uploadnew').css("display", "block");

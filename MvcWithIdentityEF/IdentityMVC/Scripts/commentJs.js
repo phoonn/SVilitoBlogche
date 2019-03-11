@@ -32,10 +32,14 @@
         var id = $(this).attr("value");
         var div = $(this).parent().parent().parent().parent();
 
+
+        var form = $('#__AjaxAntiForgeryForm');
+        var token = $('input[name="__RequestVerificationToken"]', form).val();
+
         $.ajax({
             type: "post",
             url: "/Comment/DeleteComment",
-            data: { "id": id },
+            data: { __RequestVerificationToken: token , id: id },
             success: function () {
                 div.fadeOut();
             },

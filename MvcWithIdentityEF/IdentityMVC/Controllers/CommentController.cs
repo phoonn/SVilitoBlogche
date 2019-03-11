@@ -34,6 +34,7 @@ namespace IdentityMVC.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public void DeleteComment(int id)
         {
             CommentRepo.Delete(id);

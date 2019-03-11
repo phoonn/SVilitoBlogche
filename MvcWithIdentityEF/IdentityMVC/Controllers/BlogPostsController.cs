@@ -127,7 +127,7 @@ namespace IdentityMVC.Controllers
         }
 
         // GET: BlogPosts/Edit/5
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
@@ -210,6 +210,7 @@ namespace IdentityMVC.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
         public void DeleteImage(int id)
         {
             BlogPost blogPost = Repo.GetById(id);
