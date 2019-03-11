@@ -8,7 +8,7 @@
 
         $.ajax({
             type: "post",
-            url: "/BlogPosts/CreateComment",
+            url: "/Comment/CreateComment",
             data: { "postId": id , "commentText" : text },
             success: function () {
                 window.location.hash = '#commentsection';
@@ -30,7 +30,7 @@
 
         $.ajax({
             type: "post",
-            url: "/BlogPosts/DeleteComment",
+            url: "/Comment/DeleteComment",
             data: { "id": id },
             success: function () {
                 div.fadeOut()
