@@ -66,7 +66,7 @@ namespace IdentityMVC.Controllers
             IEnumerable<PostComment> postComments;
             int PageSize = 10;
             int TotalCount = CommentRepo.CountCommentsAsync((int)id);
-            postComments = CommentRepo.Get(null, o => o.OrderByDescending(i => i.DateOfComment), "", PageSize, (PageSize * (page - 1)));
+            postComments = CommentRepo.Get(o=>o.BlogpostId == id, o => o.OrderByDescending(i => i.DateOfComment), "", PageSize, (PageSize * (page - 1)));
             int pageCount = (TotalCount % PageSize == 0 ? TotalCount / PageSize : (TotalCount / PageSize + 1));
             var result = new PagedListModel<PostComment>(postComments, TotalCount, pageCount, page);
 
