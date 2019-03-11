@@ -17,7 +17,7 @@ namespace DataModel.Identity
         [Column(Order = 2), ForeignKey("User")]
         public int UserId { get; set; }
         [Column(Order = 3, TypeName = "VARCHAR(MAX)")]
-        public string TextPost { get;set; }
+        public string PostContent { get;set; }
         [Column(Order = 4, TypeName = "datetime")]
         public DateTime DateOfPost { get; set; }
         [Column(Order = 5)]

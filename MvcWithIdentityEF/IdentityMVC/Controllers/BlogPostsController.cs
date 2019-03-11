@@ -22,11 +22,13 @@ namespace IdentityMVC.Controllers
     {
 
         private readonly IBlogPostRepository Repo;
+        private readonly ICommentRepository CommentRepo;
 
         //inject dependency 
-        public BlogPostsController(IBlogPostRepository Repo)
+        public BlogPostsController(IBlogPostRepository Repo, ICommentRepository CommentRepo)
         {
             this.Repo = Repo;
+            this.CommentRepo = CommentRepo;
         }
 
         // GET: BlogPosts
@@ -35,15 +37,15 @@ namespace IdentityMVC.Controllers
             var blogPosts = Repo.GetAll();
             foreach (var item in blogPosts)
             {
-                //item.TextPost = Markdown.ToPlainText(item.TextPost);
-                item.TextPost = Server.HtmlDecode(Server.HtmlEncode(item.TextPost));
-                //item.TextPost = CommonMark.CommonMarkConverter.Convert(item.TextPost);
+                //item.PostContent = Markdown.ToPlainText(item.PostContent);
+                item.PostContent = Server.HtmlDecode(Server.HtmlEncode(item.PostContent));
+                //item.PostContent = CommonMark.CommonMarkConverter.Convert(item.PostContent);
             }
             return View(blogPosts.ToList());
         }
 
         // GET: BlogPosts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int page = 1)
         {
             if (id == null)
             {
@@ -54,8 +56,19 @@ namespace IdentityMVC.Controllers
             {
                 return HttpNotFound();
             }
-            blogPost.TextPost =Server.HtmlDecode(Server.HtmlEncode(blogPost.TextPost));
-            return View(blogPost);
+            blogPost.PostContent =Server.HtmlDecode(Server.HtmlEncode(blogPost.PostContent));
+
+            IEnumerable<PostComment> postComments;
+            int PageSize = 10;
+            int TotalCount = CommentRepo.CountCommentsAsync((int)id);
+            postComments = CommentRepo.Get(null, o => o.OrderByDescending(i => i.DateOfComment), "", PageSize, (PageSize * (page - 1)));
+            int pageCount = (TotalCount % PageSize == 0 ? TotalCount / PageSize : (TotalCount / PageSize + 1));
+            var result = new PagedListModel<PostComment>(postComments, TotalCount, pageCount, page);
+
+
+            PostViewModel postView = new PostViewModel(result,blogPost);
+
+            return View(postView);
         }
 
         // GET: BlogPosts/Create
@@ -70,12 +83,12 @@ namespace IdentityMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create(PostModel postModel)
+        public ActionResult Create(BlogPostCreationModel postModel)
         {
             BlogPost newPost = new BlogPost();
             if (ModelState.IsValid)
             {
-                newPost.TextPost = postModel.PostContent;
+                newPost.PostContent = postModel.PostContent;
                 newPost.TitleOfPost = postModel.Title;
                 newPost.UserId = Convert.ToInt32(User.Identity.GetUserId());
                 newPost.DateOfPost = DateTime.Now;
@@ -121,7 +134,7 @@ namespace IdentityMVC.Controllers
             {
                 return HttpNotFound();
             }
-            PostModel EditPost = new PostModel(blogPost.Id,blogPost.TextPost, blogPost.TitleOfPost, blogPost.PictureContent);
+            BlogPostCreationModel EditPost = new BlogPostCreationModel(blogPost.Id,blogPost.PostContent, blogPost.TitleOfPost, blogPost.PictureContent);
             return View(EditPost);
         }
 
@@ -131,14 +144,14 @@ namespace IdentityMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(PostModel postModel)
+        public ActionResult Edit(BlogPostCreationModel postModel)
         {
             if (ModelState.IsValid)
             {
                 BlogPost newPost = new BlogPost();
 
                 newPost.Id = postModel.PostId;
-                newPost.TextPost = postModel.PostContent;
+                newPost.PostContent = postModel.PostContent;
                 newPost.TitleOfPost = postModel.Title;
                 newPost.UserId = Convert.ToInt32(User.Identity.GetUserId());
 
@@ -197,6 +210,27 @@ namespace IdentityMVC.Controllers
             blogPost.PictureContent = null;
             Repo.Update(blogPost);
             Repo.Commit();
+        }
+
+        [HttpPost]
+        public void CreateComment(int postId, string commentText)
+        {
+            PostComment comment = new PostComment();
+            comment.BlogpostId = postId;
+            comment.DateOfComment = DateTime.Now;
+            comment.TextComment = commentText;
+            comment.UserId = Convert.ToInt32(User.Identity.GetUserId());
+
+            CommentRepo.Save(comment);
+            CommentRepo.Commit();
+        }
+
+
+        [HttpPost]
+        public void DeleteComment(int id)
+        {
+            CommentRepo.Delete(id);
+            CommentRepo.Commit();
         }
 
         protected override void Dispose(bool disposing)

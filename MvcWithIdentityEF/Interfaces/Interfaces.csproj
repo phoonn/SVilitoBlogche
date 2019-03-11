@@ -50,6 +50,7 @@
     <Compile Include="BusinessLogic\ICrudLogic.cs" />
     <Compile Include="BusinessLogic\IUsersLogic.cs" />
     <Compile Include="Repositories\IBlogPostRepository.cs" />
+    <Compile Include="Repositories\ICommentRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

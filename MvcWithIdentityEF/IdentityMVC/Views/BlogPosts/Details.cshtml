@@ -1,4 +1,4 @@
-﻿@model DataModel.Identity.BlogPost
+﻿@model IdentityMVC.Models.PostViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -11,49 +11,49 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.User.Email)
+            @Html.DisplayNameFor(model => model.blogPost.User.UserName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User.Email)
+            @Html.DisplayFor(model => model.blogPost.User.UserName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TextPost)
+            @Html.DisplayNameFor(model => model.blogPost.PostContent)
         </dt>
 
         <dd>
             <div>
-                @Html.Raw(Model.TextPost)
+                @Html.Raw(Model.blogPost.PostContent)
             </div>
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DateOfPost)
+            @Html.DisplayNameFor(model => model.blogPost.DateOfPost)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateOfPost)
+            @Html.DisplayFor(model => model.blogPost.DateOfPost)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TitleOfPost)
+            @Html.DisplayNameFor(model => model.blogPost.TitleOfPost)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TitleOfPost)
+            @Html.DisplayFor(model => model.blogPost.TitleOfPost)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PictureContent)
+            @Html.DisplayNameFor(model => model.blogPost.PictureContent)
         </dt>
 
         <dd>
-            @if (Model.PictureContent != null)
+            @if (Model.blogPost.PictureContent != null)
             {
                 <div>
                     @{
-                        var base64 = Convert.ToBase64String(Model.PictureContent.ToArray());
+                        var base64 = Convert.ToBase64String(Model.blogPost.PictureContent.ToArray());
                         var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                         <img src="@imgSrc" width="800" />
                     }
@@ -62,8 +62,95 @@
         </dd>
 
     </dl>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 id="commentsection">Comment Section</h3>
+        </div><!-- /col-sm-12 -->
+    </div><!-- /row -->
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="thumbnail">
+                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                </div><!-- /thumbnail -->
+            </div><!-- /col-sm-1 -->
+
+            <div class="col-sm-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>@User.Identity.Name</strong>
+                    </div>
+                    <div class="panel-body input_comment">
+                        @*@Html.TextArea("", htmlAttributes: new { @id = "newcomment", placeholder = "Type your comment here." })*@
+                        @*<input type="text" placeholder="Join the conversation.." id="newcomment">*@
+                        <textarea rows="4" style="width:100%;resize: none" placeholder="Join the conversation.." id="newcomment"> </textarea>
+                    </div><!-- /panel-body -->
+                </div><!-- /panel panel-default -->
+            </div><!-- /col-sm-5 -->
+        </div>
+        <button type="button" value="@Model.blogPost.Id" class="submitButton" style="margin-bottom:20px;">Submit</button>
+    }
+
+
+
+
+
+
+    <div class="container">
+        @foreach (var comment in Model.commentsList.Items)
+        {
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="thumbnail">
+                        <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                    </div><!-- /thumbnail -->
+                </div><!-- /col-sm-1 -->
+
+                <div class="col-sm-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>@comment.User.UserName</strong>
+                            <span class="text-muted">commented at @comment.DateOfComment.ToShortTimeString() @comment.DateOfComment.ToShortDateString()</span>
+                            @if (User.IsInRole("Administrator") || User.Identity.Name == comment.User.UserName)
+                            {
+                                <a class="deleteComment" value="@comment.Id">Delete</a>
+                            }
+                        </div>
+                        <div class="panel-body">
+                            <p style="width:100%"></p>@comment.TextComment
+                        </div><!-- /panel-body -->
+                    </div><!-- /panel panel-default -->
+                </div><!-- /col-sm-5 -->
+            </div>
+        }
+    </div>
+
+    <div style="text-align : center">
+        @for (int i = 1; i <= Model.commentsList.PageCount; i++)
+        {
+            if (Model.commentsList.CurrentPage == i)
+            {
+                @Html.ActionLink(i.ToString() + "   ", "Details","BlogPosts", null,  null,  "commentsection", new { id = Model.blogPost.Id, page = i }, new { @class = "pageindexer", @id = "active" });
+            }
+            else
+            {
+                @Html.ActionLink(i.ToString() + "   ", "Details", "BlogPosts", null, null, "commentsection", new { id = Model.blogPost.Id, page = i }, new { @class = "pageindexer" });
+            }
+
+
+        }
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.IsInRole("Administrator"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.blogPost.Id })
+    }
+    @*@Html.ActionLink("Back to List", "Index")*@
 </p>
+
+
+<link href="~/Content/commentsection.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/commentJs.js" type="text/javascript"></script>

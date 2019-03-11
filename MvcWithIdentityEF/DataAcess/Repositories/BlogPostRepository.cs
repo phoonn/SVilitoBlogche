@@ -17,13 +17,14 @@ namespace DataAcess.Repositories
         public override void Update(BlogPost entityToUpdate)
         {
             BlogPost Entity = base.GetById(entityToUpdate.Id);
-            Entity.TextPost = entityToUpdate.TextPost;
+            Entity.PostContent = entityToUpdate.PostContent;
             Entity.TitleOfPost = entityToUpdate.TitleOfPost;
             if (entityToUpdate.PictureContent != null)
             {
                 Entity.PictureContent = entityToUpdate.PictureContent;
             }
             base.Update(Entity);
+
         }
     }
 }

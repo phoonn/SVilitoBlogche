@@ -5,9 +5,9 @@ using System.Web.Mvc;
 
 namespace IdentityMVC.Models
 {
-	public class PostModel
+	public class BlogPostCreationModel
 	{
-        public PostModel(int PostId,string PostContent, string Title, byte[] Image)
+        public BlogPostCreationModel(int PostId,string PostContent, string Title, byte[] Image)
         {
             this.PostId = PostId;
             this.PostContent = PostContent;
@@ -15,7 +15,7 @@ namespace IdentityMVC.Models
             this.Image = Image;
         }
 
-        public PostModel() { }
+        public BlogPostCreationModel() { }
 
         [HiddenInput(DisplayValue = false)]
         public int PostId { get; set; }

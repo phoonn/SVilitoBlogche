@@ -53,11 +53,11 @@ namespace DataAcess.Repositories
             {
                 if (orderBy != null)
                 {
-                    return orderBy(query).Take(take).Skip(skip).ToList();
+                    return orderBy(query).Skip(skip).Take(take).ToList();
                 }
                 else
                 {
-                    return query.Take(take).Skip(skip).ToList();
+                    return query.Skip(skip).Take(take).ToList();
                 }
             }
             else if (orderBy != null)
