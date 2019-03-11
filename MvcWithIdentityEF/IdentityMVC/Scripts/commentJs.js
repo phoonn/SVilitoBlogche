@@ -6,10 +6,14 @@
         var id = $(this).attr("value");
         var text = $("textarea#newcomment").val();
 
+
+        var form = $('#__AjaxAntiForgeryForm');
+        var token = $('input[name="__RequestVerificationToken"]', form).val();
+
         $.ajax({
             type: "post",
             url: "/Comment/CreateComment",
-            data: { "postId": id , "commentText" : text },
+            data: { __RequestVerificationToken: token, postId: id , commentText : text },
             success: function () {
                 window.location.hash = '#commentsection';
                 window.location.reload(true);
@@ -33,7 +37,7 @@
             url: "/Comment/DeleteComment",
             data: { "id": id },
             success: function () {
-                div.fadeOut()
+                div.fadeOut();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);

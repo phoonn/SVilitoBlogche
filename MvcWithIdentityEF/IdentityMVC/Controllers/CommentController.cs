@@ -20,6 +20,7 @@ namespace IdentityMVC.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public void CreateComment(int postId, string commentText)
         {
             PostComment comment = new PostComment();

@@ -15,6 +15,7 @@ using IdentityMVC.Models;
 using Interfaces.Repositories;
 using Microsoft.AspNet.Identity;
 using Markdig;
+using Ganss.XSS;
 
 namespace IdentityMVC.Controllers
 {
@@ -37,8 +38,9 @@ namespace IdentityMVC.Controllers
             var blogPosts = Repo.GetAll();
             foreach (var item in blogPosts)
             {
+                var sanitizer = new HtmlSanitizer();
                 //item.PostContent = Markdown.ToPlainText(item.PostContent);
-                item.PostContent = Server.HtmlDecode(Server.HtmlEncode(item.PostContent));
+                item.PostContent = sanitizer.Sanitize(item.PostContent);
                 //item.PostContent = CommonMark.CommonMarkConverter.Convert(item.PostContent);
             }
             return View(blogPosts.ToList());
@@ -56,7 +58,10 @@ namespace IdentityMVC.Controllers
             {
                 return HttpNotFound();
             }
-            blogPost.PostContent =Server.HtmlDecode(Server.HtmlEncode(blogPost.PostContent));
+
+            var sanitizer = new HtmlSanitizer();
+            blogPost.PostContent = sanitizer.Sanitize(blogPost.PostContent);
+            //blogPost.PostContent =Server.HtmlDecode(Server.HtmlEncode(blogPost.PostContent));
 
             IEnumerable<PostComment> postComments;
             int PageSize = 10;
@@ -122,6 +127,7 @@ namespace IdentityMVC.Controllers
         }
 
         // GET: BlogPosts/Edit/5
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
@@ -212,26 +218,26 @@ namespace IdentityMVC.Controllers
             Repo.Commit();
         }
 
-        [HttpPost]
-        public void CreateComment(int postId, string commentText)
-        {
-            PostComment comment = new PostComment();
-            comment.BlogpostId = postId;
-            comment.DateOfComment = DateTime.Now;
-            comment.TextComment = commentText;
-            comment.UserId = Convert.ToInt32(User.Identity.GetUserId());
+        //[HttpPost]
+        //public void CreateComment(int postId, string commentText)
+        //{
+        //    PostComment comment = new PostComment();
+        //    comment.BlogpostId = postId;
+        //    comment.DateOfComment = DateTime.Now;
+        //    comment.TextComment = commentText;
+        //    comment.UserId = Convert.ToInt32(User.Identity.GetUserId());
 
-            CommentRepo.Save(comment);
-            CommentRepo.Commit();
-        }
+        //    CommentRepo.Save(comment);
+        //    CommentRepo.Commit();
+        //}
 
 
-        [HttpPost]
-        public void DeleteComment(int id)
-        {
-            CommentRepo.Delete(id);
-            CommentRepo.Commit();
-        }
+        //[HttpPost]
+        //public void DeleteComment(int id)
+        //{
+        //    CommentRepo.Delete(id);
+        //    CommentRepo.Commit();
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -4,7 +4,12 @@
     ViewBag.Title = "Details";
 }
 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
 <h2>Details</h2>
+
 
 <div>
     <h4>BlogPost</h4>
@@ -132,7 +137,7 @@
         {
             if (Model.commentsList.CurrentPage == i)
             {
-                @Html.ActionLink(i.ToString() + "   ", "Details","BlogPosts", null,  null,  "commentsection", new { id = Model.blogPost.Id, page = i }, new { @class = "pageindexer", @id = "active" });
+                @Html.ActionLink(i.ToString() + "   ", "Details", "BlogPosts", null, null, "commentsection", new { id = Model.blogPost.Id, page = i }, new { @class = "pageindexer", @id = "active" });
             }
             else
             {
