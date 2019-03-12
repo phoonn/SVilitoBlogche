@@ -20,9 +20,13 @@ namespace IdentityMVC.Controllers
     {
         private IUsersLogic Logic;
         private AppUserManager UserManager;
+        private readonly IBlogPostRepository BlogRepo;
+        private readonly ICommentRepository CommentRepo;
 
-        public UserController(IUsersLogic Logic)
+        public UserController(IUsersLogic Logic, IBlogPostRepository BlogRepo, ICommentRepository CommentRepo)
         {
+            this.BlogRepo = BlogRepo;
+            this.CommentRepo = CommentRepo;
             this.Logic = Logic;
             UserManager = Startup.UserManagerFactory.Invoke();
         }
@@ -80,6 +84,24 @@ namespace IdentityMVC.Controllers
         public ActionResult Delete(string userName)
         {
             var user = Logic.Find(u => u.UserName == userName);
+            IEnumerable<BlogPost> blogPosts = BlogRepo.Get(o => o.UserId == user.Id, null, "", 0, 0);
+            IEnumerable<PostComment> comments = CommentRepo.Get(o => o.UserId == user.Id, null, "", 0, 0);
+            foreach (var item in blogPosts)
+            {
+                IEnumerable<PostComment> commentsFor = CommentRepo.Get(o => o.BlogpostId == item.Id, null, "", 0, 0);
+                foreach (var comment in commentsFor)
+                {
+                    CommentRepo.Delete(comment.Id);
+                }
+                BlogRepo.Delete(item.Id);
+            }
+
+            foreach (var item in comments)
+            {
+                CommentRepo.Delete(item.Id);
+            }
+
+            CommentRepo.Commit();
             Logic.Delete(user);
             return RedirectToAction("Index");
         }
