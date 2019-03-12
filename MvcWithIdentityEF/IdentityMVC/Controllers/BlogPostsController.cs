@@ -34,7 +34,8 @@ namespace IdentityMVC.Controllers
         // GET: BlogPosts
         public ActionResult Index()
         {
-            var blogPosts = Repo.GetAll();
+            //var blogPosts = Repo.GetAll();
+            var blogPosts = Repo.Get(null, o => o.OrderByDescending(i => i.DateOfPost), "", 0, 0);
             foreach (var item in blogPosts)
             {
                 var sanitizer = new HtmlSanitizer();
@@ -102,20 +103,18 @@ namespace IdentityMVC.Controllers
 
             int count  = Request.Files.Count;
 
-            if(Request.Files.Count != 0)
+            if (Request.Files.Count != 0)
             {
                 using (var binaryReader = new BinaryReader(Request.Files["photo"].InputStream))
                 {
-                    if (Request.Files["photo"].ContentLength == 0)
+                    if (Request.Files["photo"].ContentLength != 0)
                     {
-                        return RedirectToAction("Index");
+                        fileData = binaryReader.ReadBytes(Request.Files["photo"].ContentLength);
+                        newPost.PictureContent = fileData;
                     }
 
-                    fileData = binaryReader.ReadBytes(Request.Files["photo"].ContentLength);
-                    newPost.PictureContent = fileData;
                 }
             }
-            
 
             Repo.Save(newPost);
             Repo.Commit();
