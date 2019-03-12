@@ -14,7 +14,6 @@ using DataModel.Identity.ManagerAndStore;
 using IdentityMVC.Models;
 using Interfaces.Repositories;
 using Microsoft.AspNet.Identity;
-using Markdig;
 using Ganss.XSS;
 
 namespace IdentityMVC.Controllers
@@ -182,6 +181,7 @@ namespace IdentityMVC.Controllers
         }
 
         // GET: BlogPosts/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

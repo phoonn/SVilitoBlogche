@@ -37,7 +37,7 @@ namespace DataModel.Identity.ManagerAndStore
             modelBuilder.Entity<PostComment>()
                 .HasRequired(c => c.BlogPost)
                 .WithMany()
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             //modelBuilder.Entity<Side>()
             //    .HasRequired(s => s.Stage)

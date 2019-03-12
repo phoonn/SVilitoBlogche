@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace IdentityMVC.Controllers
 {
+    [Authorize]
     public class CommentController : Controller
     {
         private readonly ICommentRepository CommentRepo;
@@ -35,10 +36,21 @@ namespace IdentityMVC.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public void DeleteComment(int id)
+        public EmptyResult DeleteComment(int id)
         {
-            CommentRepo.Delete(id);
-            CommentRepo.Commit();
+            if (User.IsInRole("Administrator") ||CommentRepo.GetById(id).User.Id == Convert.ToInt32(User.Identity.GetUserId()))
+            {
+                CommentRepo.Delete(id);
+                CommentRepo.Commit();
+                return new EmptyResult();
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                Response.Write("Canno't delete comment.");
+                return new EmptyResult();
+            }
         }
+        
     }
 }
