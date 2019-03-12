@@ -4,79 +4,83 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<div class="headerEditors col-md-12">
 
+    <h2>Edit Post</h2>
 
-@using (Html.BeginForm("Edit", "BlogPosts", FormMethod.Post, new { id = "__AjaxAntiForgeryForm",  enctype = "multipart/form-data" }))
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@using (Html.BeginForm("Edit", "BlogPosts", FormMethod.Post, new { id = "__AjaxAntiForgeryForm", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>BlogPost</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.PostId)
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.PostId)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostContent, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.PostContent, new { @class = "textEditor", @id = "textEditor" })
-                @Html.ValidationMessageFor(model => model.PostContent, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @if (Model.Image != null)
-        {
-
-            <div>
-                @{
-                    var base64 = Convert.ToBase64String(Model.Image.ToArray());
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    <img src="@imgSrc" width="800" />
-                }
-                <button type="button" value="@Model.PostId" class="deleteButton">Delete</button>
-            </div>
-
-
-
-        }
-        @*else
-            {
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <label>Photo</label>
-                        <br />
-                        <input type="file" id="photo" name="photo" />
-                    </div>
-                </div>
-            }*@
-        <div class="form-group" id="uploadnew" style="display:@(Model.Image == null ? "block" : "none") ">
-            <div class="col-md-10">
-                <label>Photo</label>
-                <br />
-                <input type="file" id="photo" name="photo" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PostContent, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.PostContent, new { @class = "textEditor", @id = "textEditor" })
+            @Html.ValidationMessageFor(model => model.PostContent, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <label class="control-label col-md-2">Photo</label>
+    @if (Model.Image != null)
+    {
+        <div>
+
+            @{
+                var base64 = Convert.ToBase64String(Model.Image.ToArray());
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img src="@imgSrc" height="350" class="currentPhoto" />
+            }
+            <button type="button" value="@Model.PostId" class="deleteButton"></button>
+
+        </div>
+
+
+
+    }
+    @*else
+        {
+            <div class="form-group">
+                <div class="col-md-10">
+                    <label>Photo</label>
+                    <br />
+                    <input type="file" id="photo" name="photo" />
+                </div>
+            </div>
+        }*@
+    <div class="form-group" id="uploadnew" style="display:@(Model.Image == null ? "block" : "none") ">
+        <div class="col-md-12">
+            <input type="file" id="photo" name="photo" />
+        </div>
+    </div>
+
+    <div class="emptyBlock" id="hideEmpty" style="display:@(Model.Image == null ? "none" : "block") ">
+
+    </div>
+    <div class="form-group">
+        <br />
+        <div class="col-md-offset-2 col-md-10">
+            @*<input type="submit" value="Save" class="btn btn-default" />*@
+            <input type="submit" value="Save" class="btn btn-default" style="width:120px;" />
+        </div>
+    </div>
+</div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 
 <link href="~/Content/jquery-te-1.4.0.css" rel="stylesheet" type="text/css" />

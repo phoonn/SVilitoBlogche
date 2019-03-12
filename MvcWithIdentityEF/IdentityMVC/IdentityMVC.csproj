@@ -256,8 +256,13 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\commentsection.css" />
+    <Content Include="Content\Images\jumbo.jpg" />
     <Content Include="Content\jquery-te-1.4.0.css" />
+    <Content Include="Content\themeCss\bootstrap.min.css" />
+    <Content Include="Content\themeCss\font-awesome.min.css" />
+    <Content Include="Content\themeCss\style.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -267,6 +272,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\deleteImage.js" />
     <Content Include="Scripts\EditUser.js" />
@@ -282,6 +292,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\commentJs.js" />
+    <Content Include="Scripts\themeJs\bootstrap.min.js" />
+    <Content Include="Scripts\themeJs\jquery.min.js" />
+    <Content Include="Scripts\themeJs\main.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -308,7 +321,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

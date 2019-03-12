@@ -17,8 +17,10 @@
             url: "/BlogPosts/DeleteImage",
             data: { __RequestVerificationToken: token, id: id },
             success: function () {
-                parent.fadeOut();
+                //parent.fadeOut();
+                parent.remove();
                 $('#uploadnew').css("display", "block");
+                $('#hideEmpty').css("display", "none");
             },
             error: function () {
                 alert("You couldn't delete this");

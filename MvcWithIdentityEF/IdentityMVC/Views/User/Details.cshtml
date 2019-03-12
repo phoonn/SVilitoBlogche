@@ -15,17 +15,11 @@
             {
                 <p>Administrator</p>
             }
-
-            @if (Model.Roles.SingleOrDefault().RoleId == 3)
-            {
-                <p>Moderator</p>
-            }
         </th>
         <th>
             New Role :
             <button type="button" id="changeToUser" value="User">User</button>
             <button type="button" id="changeToAdministrator" value="Administrator">Administrator</button>
-            <button type="button" id="changeToModerator" value="Moderator">Moderator</button>
         </th>
     </tr>
     <tr>

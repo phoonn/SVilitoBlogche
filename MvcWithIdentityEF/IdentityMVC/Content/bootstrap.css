@@ -4928,13 +4928,19 @@ a.list-group-item.active > .badge,
 }
 
 .jumbotron {
-  padding: 30px;
-  margin-bottom: 30px;
-  font-size: 21px;
-  font-weight: 200;
-  line-height: 2.1428571435;
-  color: inherit;
-  background-color: #eeeeee;
+    padding: 30px;
+    margin-bottom: 30px;
+    font-size: 21px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    background-color: #eeeeee;
+    background-image: url("https://wallpapermemory.com/uploads/692/gym-wallpaper-hd-1366x768-301987.jpg");
+    /*opacity:0.8;*/
+    /*filter: blur(2px);
+    -webkit-filter: blur(2px);*/
+    /*background-image:url("~/Content/Images/jumbo.jpg")*/
+    background-position: center;
+    background-size: cover;
 }
 
 .jumbotron h1 {
@@ -4942,8 +4948,25 @@ a.list-group-item.active > .badge,
   color: inherit;
 }
 
-.jumbotron p {
+    .jumbotron h1 span {
+        line-height: 1;
+        color: darkorange;
+    }
+
+    .jumbotron p {
+        line-height: 1.4;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size:26px;
+        opacity: 1;
+    }
+
+.jumbotron p span{
   line-height: 1.4;
+  color:white;
+  text-transform:uppercase;
+  font-weight:bold;
+  opacity:1;
 }
 
 .container .jumbotron {
@@ -6813,4 +6836,35 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+}
+
+.bg-image {
+    /* The image used */
+    background-image: url("https://png.pngtree.com/thumb_back/fw800/back_pic/03/89/30/2757d8afe5bf491.jpg");
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Position text in the middle of the page/image */
+.bg-text {
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
 }

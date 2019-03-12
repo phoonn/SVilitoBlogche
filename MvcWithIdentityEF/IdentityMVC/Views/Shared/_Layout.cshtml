@@ -1,57 +1,100 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>FitLife</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:700%7CNunito:300,600" rel="stylesheet">
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/Scripts/jquery-1.10.2.js")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Identity", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <li>@Html.ActionLink("Users", "Index", "User")</li>
-                    }
-                </ul>
-                <div class="navbar-right">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <p class="navbar-brand">Hello @User.Identity.Name</p>
-                        @Html.ActionLink("Logout", "Logout", "Auth", null, new { @class = "navbar-brand" })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Login", "Login", "Auth", new { area = "" }, new { @class = "navbar-brand" })
-                        @Html.ActionLink("Register", "Register", "Auth", new { area = "" }, new { @class = "navbar-brand" })
-                    }
+    <!-- Header -->
+    <header id="header">
+        <!-- Nav -->
+        <div id="nav">
+            <!-- Main Nav -->
+            <div id="nav-fixed">
+                <div class="container">
+                    <!-- logo -->
+                    <div class="nav-logo myLogo">
+                        FitLife<span>.</span>
+                        @*<a href="index.html" class="logo"><img src="src="@Url.Content("~/Content/Images/mailworks.png")" alt=""></a>*@
+
+                    </div>
+                    <!-- /logo -->
+                    <!-- nav -->
+                    <ul class="nav-menu nav navbar-nav">
+                        <li class="cat-1">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="cat-3">@Html.ActionLink("About", "About", "Home")</li>
+                        <li class="cat-4">@Html.ActionLink("Blog", "Index", "BlogPosts")</li>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="cat-2">@Html.ActionLink("Users", "Index", "User")</li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="hiUser">Hello <span>@User.Identity.Name</span> !</li>
+                            <li class="cat-2">@Html.ActionLink("Logout", "Logout", "Auth", null, new { @class = "navbar-brand" })</li>
+                        }
+                        else
+                        {
+                            <li class="cat-2">@Html.ActionLink("Login", "Login", "Auth", new { area = "" }, new { @class = "navbar-brand" })</li>
+                            <li class="cat-2">@Html.ActionLink("Register", "Register", "Auth", new { area = "" }, new { @class = "navbar-brand" })</li>
+                        }
+
+                    </ul>
+                    <!-- /nav -->
                 </div>
             </div>
+            <!-- /Main Nav -->
         </div>
-    </div>
+        <!-- /Nav -->
+    </header>
+    <!-- /Header -->
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Identity</p>
-        </footer>
     </div>
+    <!-- Footer -->
+    <footer id="footer">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6">
+
+                    <div class="footer-widget">
+                        <div class="footer-copyright">
+                            <div class="myLogo">
+                                FitLife<span>.</span>
+                            </div>
+                            <span>
+                                Our vision is to get people moving and provide scientifically backed education to fitness professionals and health enthusiasts to make an impact on preventable diseases related to inactivity.
+                                <br>&copy;
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
