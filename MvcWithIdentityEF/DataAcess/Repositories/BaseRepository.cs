@@ -66,7 +66,7 @@ namespace DataAcess.Repositories
             }
             else
             {
-                return query.Skip(skip).ToList();
+                return query.ToList();
             }
         }
 

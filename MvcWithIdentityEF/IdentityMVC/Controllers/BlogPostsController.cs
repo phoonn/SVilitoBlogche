@@ -203,6 +203,11 @@ namespace IdentityMVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             BlogPost blogPost = Repo.GetById(id);
+            IEnumerable<PostComment> comments = CommentRepo.Get(o => o.BlogpostId == id, null, "", 0, 0);
+            foreach (var item in comments)
+            {
+                CommentRepo.Delete(item.Id);
+            }
             Repo.Delete(blogPost);
             Repo.Commit();
             return RedirectToAction("Index");
